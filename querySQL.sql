@@ -69,9 +69,3 @@ CREATE TABLE dataST (
     dateT VARCHAR(50),
     PRIMARY KEY (idST)
 )
-
-SELECT * FROM dataSP
-DELETE FROM dataSP
-
-
-SELECT * FROM dataHasil

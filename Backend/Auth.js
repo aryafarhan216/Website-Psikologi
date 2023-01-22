@@ -17,6 +17,7 @@ const db = mysql.createConnection({
 
 app.use(express.json())
 app.use(cors())
+
 // Sign In Validation
 app.post("/user", (req,res)=>{ 
     const values = [
@@ -40,6 +41,7 @@ app.post("/signUp",(req,res) =>{
         req.body.email,
         req.body.password,
     ]
+
     db.query(q,[values],(err,data) =>{
         if(err) return res.json(err)
         return res.json(data)
@@ -158,7 +160,7 @@ app.post("/keuangan/dataJadwal",(req,res) =>{
             return res.json(data)
         })
     }else{
-        if (values[1] === '' && values[2] === ''){
+        if (values[1] === '' && values[2] === '' || values[1] === null && values[2] === null){
             const q = `SELECT * FROM dataJadwal WHERE pelayanan =?`
             console.log("lain", values)
             db.query(q,[values[0]],(err,data) =>{

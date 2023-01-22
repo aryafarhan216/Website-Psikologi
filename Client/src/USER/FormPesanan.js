@@ -60,7 +60,7 @@ function FormPesanan () {
         }
 
         const sumPrice = () => {
-            if(selectedSesi!= ""){
+            if(selectedSesi !== ""){
                 let admin = 3000
                 switch (selectedValues.option){
                     case "0":
@@ -97,6 +97,7 @@ function FormPesanan () {
                             setSelectedValues({ ...selectedValues, sum: sum});
                         }
                     break
+                    // tambah individu
                 } 
             }else{
                 setSelectedValues({ ...selectedValues, idC: id, nama: nama, sum:"null"})
@@ -147,17 +148,17 @@ function FormPesanan () {
         if(selectedValues.option === "PIO" || selectedValues.option === "PP" || selectedValues.option === "PK"){
             if(selectedValues.namaP === ""){valid = false; alert("Nama Perusahaan masih kosong") }
             if(selectedValues.subOption === "" || selectedValues.subOption === "0"){valid = false; alert("Pilih Layanan belom dipilih") }
-            if(selectedValues.MPay === "" || selectedValues.MPay == "0"){valid = false; alert("Metode Pembayaran belom dipilih") }
+            if(selectedValues.MPay === "" || selectedValues.MPay === "0"){valid = false; alert("Metode Pembayaran belom dipilih") }
             if(selectedValues.sesi === ""){valid = false; alert("Sesi/Orang masih kosong") }
             if(selectedValues.jadwal === ""){valid = false; alert("Jadwal belum diisi") }
         }
         if(selectedValues.option === "I"){
             if(selectedValues.subOption === "" || selectedValues.subOption === "0"){valid = false; alert("Pilih Layanan belom dipilih") }
-            if(selectedValues.MPay === "" || selectedValues.MPay == "0"){valid = false; alert("Metode Pembayaran belom dipilih") }
+            if(selectedValues.MPay === "" || selectedValues.MPay === "0"){valid = false; alert("Metode Pembayaran belom dipilih") }
             if(selectedValues.sesi === ""){valid = false; alert("Sesi/Orang masih kosong") }
             if(selectedValues.jadwal === ""){valid = false; alert("Jadwal belum diisi") }
         }
-        if(selectedValues.idC != "" && selectedValues.sesi != ""&& selectedValues.jadwal != "" && selectedValues.MPay!= ""){
+        if(selectedValues.idC !== "" && selectedValues.sesi !== "" && selectedValues.jadwal !== "" && selectedValues.MPay !== ""){
             valid = true
         }
         if (valid){validation()}
@@ -268,7 +269,7 @@ function FormPesanan () {
                             </Form.Select>
                             </Col>
                         </Row>
-                        {selectedSubOption != 0 &&
+                        {selectedSubOption !== 0 &&
                         <Row className="mt-2">
                             <Col xs={5}></Col>
                             <Col xs={1}>:</Col>
@@ -315,7 +316,7 @@ function FormPesanan () {
                             </Form.Select>
                             </Col>
                         </Row>
-                          {selectedSubOption != 0 &&
+                          {selectedSubOption !== 0 &&
                         <Row className="mt-2">
                             <Col xs={5}></Col>
                             <Col xs={1}>:</Col>
@@ -393,7 +394,7 @@ function FormPesanan () {
                             </Col>
                             
                         </Row>
-                        {selectedSubOption != "0" && 
+                        {selectedSubOption !== "0" && 
                         <Row className="mt-2">
                             <Col xs={5}></Col>
                             <Col xs={1}>:</Col>
@@ -413,7 +414,7 @@ function FormPesanan () {
                         </div>
                         }
                           
-                        {selectedOption != "" && selectedOption != "0" &&
+                        {selectedOption !== "" && selectedOption !== "0" &&
                           <div>
                             
                                 {(() =>{

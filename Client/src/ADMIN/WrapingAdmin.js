@@ -21,6 +21,7 @@ import Hasil from './PAGES/Hasil';
 import Keuangan from './PAGES/Keuangan';
 import Penjadwalan from './PAGES/Penjadwalan';
 import { useParams } from 'react-router-dom';
+import ChatSupport from './PAGES/ChatSupport';
 
 
 function WrapingAdmin () {
@@ -45,6 +46,9 @@ function WrapingAdmin () {
                 break
             case "dataHasil":
                 return <Hasil />
+                break
+            case"chat":
+                return <ChatSupport />
                 break
     
     
@@ -99,8 +103,8 @@ function WrapingAdmin () {
 
     <Row>
         {/* SideBar */}
-        <Col className='sidebar mr-0' xs={0} lg={2}>
-            <div className='d-lg-block backColor vh-100 pt-4 d-none'>
+        <Col className='sidebar mr-0 backColor ' xs={0} lg={2}>
+            <div className='d-lg-block vh-100 pt-4 d-none'>
             <seciton className="">
                 <div className='d-flex justify-content-center'>
                     <img 
@@ -129,7 +133,6 @@ function WrapingAdmin () {
             <div className='px-3'>
                 <hr />
              </div>
-             <Link href="#" className='d-flex align-items-center'><GoSignOut /> <span className='px-1'>Leave</span></Link>
             </Nav>
             </div>
             </div>

@@ -9,11 +9,7 @@ import {
 import SignUp from './USER/SignUp';
 import WrapingUser from './USER/WrapingUser';
 import WrapingAdmin from './ADMIN/WrapingAdmin';
-import HomePage from "./USER/HomePage";
-import LayananToko from "./USER/LayananToko";
-import Pesanan from "./USER/Pesanan";
-import FormPesanan from "./USER/FormPesanan";
-import TransaksiSukses from "./USER/TransaksiSukses";
+
 
 function App() {
   return (

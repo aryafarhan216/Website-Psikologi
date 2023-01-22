@@ -1,7 +1,8 @@
-import { Table} from 'react-bootstrap';
+import { Button, Table} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
+
 
 function Hasil () {
     const [dateRange, setDateRange] = useState([null, null]);
@@ -9,7 +10,6 @@ function Hasil () {
     const [startDate, endDate] = dateRange;
     // variabel
     const [dataHasil, setDataHasil] = useState([])
-
     useEffect(() =>{
         const fetchAllDataHasil = async () =>{
             try{
@@ -46,8 +46,8 @@ function Hasil () {
         }catch(e){
             console.log("isiEror",e)
         }
-        
     }
+
     return(
 
         <>
@@ -76,9 +76,7 @@ function Hasil () {
                 </div>
                 </div>
         </section>
-        <section>
 
-        </section>
         <Table striped>
                 <thead className='tableHead'>
                     <tr>

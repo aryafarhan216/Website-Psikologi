@@ -1,8 +1,8 @@
-import { Col, Row, Table, Form} from 'react-bootstrap';
+import {Table, Form, Button} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
-import { format } from 'date-fns';
+import * as XLSX from 'xlsx';
 
 function Keuangan () {
     const [dateRange, setDateRange] = useState([null, null]);
@@ -46,8 +46,7 @@ function Keuangan () {
 
         fetchAllDataJadwal()
     },[selectedValues, selectedOption])
-    console.log(dateRange)
-    console.log(selectedValues)
+
       
     function handleChange(event) {
         setSelectedOption(event.target.value);
@@ -62,7 +61,14 @@ function Keuangan () {
 
         return total
     }
-    console.log("test", totalIncome)
+
+    const handleExport = () =>{
+        const ws = XLSX.utils.json_to_sheet(dataJadwal);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "DataHasil.xlsx");
+    }
+
     return(
         <>
         <div className=''>
@@ -106,8 +112,8 @@ function Keuangan () {
                 </div>
             </div>
         </section>
-        <section>
-
+        <section className='p-3'>
+            <Button onClick={handleExport} variant='success'> download file</Button>
         </section>
         <section>
         <Table striped>
@@ -121,7 +127,6 @@ function Keuangan () {
                     <th>Sesi/Orang</th>
                     <th>M Pembayaran</th>
                     <th>T Pembayaran</th>
-                    
                     <th>Tanggal Transaksi</th>
                     </tr>
                 </thead>
