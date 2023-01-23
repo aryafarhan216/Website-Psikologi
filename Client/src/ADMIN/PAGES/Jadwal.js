@@ -2,6 +2,7 @@ import { Table, Button, Modal, Row, Col, Form} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 
 function ModalJadwal(props) {
     const {data, onHide, show} = props
@@ -145,6 +146,14 @@ function Jadwal () {
         fetchAllDataJadwal()
     },[selectedValues])
 
+    const handleExport = () =>{
+        const ws = XLSX.utils.json_to_sheet(dataJadwal);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "DataJadwal.xlsx");
+    }
+
+
     console.log("isi",dataJadwal)
     return(
         <>
@@ -157,7 +166,8 @@ function Jadwal () {
             </div>
             
             <div className='d-flex justify-content-start'> 
-                <div className='mb-3' style={{
+            <Button onClick={handleExport} variant='success' className='mb-2'> download file</Button>
+                <div className='mx-3 mb-3' style={{
                     width:'20%'
                 }}>
                 <DatePicker
@@ -171,11 +181,10 @@ function Jadwal () {
                     }}
                     isClearable={true}
                     />
+                    
                 </div>
-                </div>
-        </section>
-        <section>
-
+                
+               </div>
         </section>
         <Table striped>
                 <thead className='tableHead'>

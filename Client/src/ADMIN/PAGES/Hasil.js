@@ -2,6 +2,7 @@ import { Button, Table} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
+import * as XLSX from 'xlsx';
 
 
 function Hasil () {
@@ -47,7 +48,12 @@ function Hasil () {
             console.log("isiEror",e)
         }
     }
-
+    const handleExport = () =>{
+        const ws = XLSX.utils.json_to_sheet(dataHasil);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "DataHasil.xlsx");
+    }
     return(
 
         <>
@@ -59,7 +65,10 @@ function Hasil () {
                 <h1 className='text-center mb-0'>{dataHasil.length}</h1>
             </div>
             <div className='d-flex justify-content-start'> 
-                <div className='mb-3' style={{
+                    <section>
+                        <Button onClick={handleExport} variant='success'> download file</Button>
+                    </section>
+                <div className='mb-3 mx-3' style={{
                     width:'20%'
                 }}>
                 <DatePicker
