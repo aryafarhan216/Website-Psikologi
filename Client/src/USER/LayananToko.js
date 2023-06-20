@@ -2,10 +2,15 @@ import "../styleGlobal.css"
 import{
     Button, 
 } from "react-bootstrap"
+import {useNavigate} from 'react-router-dom'
 // images
 import section4Img from "../Images/User/section4IMG.png"
 
 function LayananToko (){
+    const navigate = useNavigate()
+    const handleClick = () =>{
+        navigate("/user/chatAdmin")
+    }
     return(
         <>
         {/* Section 1 */}
@@ -73,7 +78,7 @@ function LayananToko (){
             <h4 className="text-center"><em>Konsultasi layanan yang mana?</em></h4>
             <h4 className="mainColor text-center"><em>Chat Adminnya</em></h4>
             <div className="d-flex justify-content-center">
-            <Button  className="align-self-center my-2 buttons2 px-5">Chat Admin</Button>
+            <Button  className="align-self-center my-2 buttons2 px-5" onClick={handleClick}>Chat Admin</Button>
             </div>
         </section>
         {/* End of Section 7 */}

@@ -41,3 +41,7 @@ a{
     width: auto !important;
     align-items: center !important;
 }
+
+input[type=radio]{
+    display: none;
+  }

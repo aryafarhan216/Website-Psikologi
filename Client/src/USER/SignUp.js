@@ -25,7 +25,6 @@ function SignUp() {
     });
 
     const navigate = useNavigate()
-
     const handleChange = (e) => {
         setUsers((prev) => ({...prev, [e.target.name]: e.target.value}))
     };

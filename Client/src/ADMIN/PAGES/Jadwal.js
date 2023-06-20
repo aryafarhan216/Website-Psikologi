@@ -2,6 +2,7 @@ import { Table, Button, Modal, Row, Col, Form} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 
 function ModalJadwal(props) {
     const {data, onHide, show} = props
@@ -73,6 +74,16 @@ function ModalJadwal(props) {
                 <Col><strong>{data.subOption}</strong></Col>
             </Row>
             <Row>
+                <Col xs={3}>Psikolog</Col>
+                <Col xs={1}>:</Col>
+                <Col><strong>
+                {data.psikolog === 1 && <span> Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </span>}
+                {data.psikolog === 2 && <span> Sarinah S.Psi., M.Psi Psikolog</span>}
+                {data.psikolog === 3 && <span> Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog</span>}
+                {data.psikolog === 4 && <span> Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog</span>}
+                </strong></Col>
+            </Row>
+            <Row>
                 <Col xs={3}>Sesi</Col>
                 <Col xs={1}>:</Col>
                 <Col>{data.sesi} Sesi/Orang</Col>
@@ -120,7 +131,7 @@ function Jadwal () {
     const [dataJadwal, setDataJadwal] = useState([])
     // variable modal
     const [modalShow, setModalShow] = useState(false);
-    const [modalData, setModalData] = useState({idC: "", idDJ: "", nama: "", namaP: "", option: "", 
+    const [modalData, setModalData] = useState({idC: "", idDJ: "", nama: "", namaP: "", option: "", psikolog:"",
     subOption: "", sesi:"", jadwal:"", MPay: "", sum:""});
 
     useEffect(() =>{
@@ -145,6 +156,14 @@ function Jadwal () {
         fetchAllDataJadwal()
     },[selectedValues])
 
+    const handleExport = () =>{
+        const ws = XLSX.utils.json_to_sheet(dataJadwal);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "DataJadwal.xlsx");
+    }
+
+
     console.log("isi",dataJadwal)
     return(
         <>
@@ -157,7 +176,8 @@ function Jadwal () {
             </div>
             
             <div className='d-flex justify-content-start'> 
-                <div className='mb-3' style={{
+            <Button onClick={handleExport} variant='success' className='mb-2'> download file</Button>
+                <div className='mx-3 mb-3' style={{
                     width:'20%'
                 }}>
                 <DatePicker
@@ -171,11 +191,10 @@ function Jadwal () {
                     }}
                     isClearable={true}
                     />
+                    
                 </div>
-                </div>
-        </section>
-        <section>
-
+                
+               </div>
         </section>
         <Table striped>
                 <thead className='tableHead'>
@@ -186,6 +205,7 @@ function Jadwal () {
                     <th>Status</th>
                     <th>Customer</th>
                     <th>Perusahaan</th>
+                    <th>Psikolog</th>
                     <th>Pelayanan</th>
                     <th>Sesi/Orang</th>
                     <th>Tanggal Janjian</th>
@@ -207,6 +227,7 @@ function Jadwal () {
                                 nama : dataJadwal.nama,
                                 namap : dataJadwal.namaP,
                                 option : dataJadwal.Status,
+                                psikolog : dataJadwal.idPsikolog,
                                 subOption : dataJadwal.pelayanan,
                                 sesi : dataJadwal.sesi,
                                 jadwal : dataJadwal.dateJ,
@@ -220,6 +241,12 @@ function Jadwal () {
                                 <td>{dataJadwal.Status}</td>
                                 <td>{dataJadwal.nama}</td>
                                 <td>{dataJadwal.namaP}</td>
+                                <td>
+                                {dataJadwal.idPsikolog === 1 && <span> Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </span>}
+                                {dataJadwal.idPsikolog === 2 && <span> Sarinah S.Psi., M.Psi Psikolog</span>}
+                                {dataJadwal.idPsikolog === 3 && <span> Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog</span>}
+                                {dataJadwal.idPsikolog === 4 && <span> Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog</span>}
+                                </td>
                                 <td>{dataJadwal.pelayanan}</td>
                                 <td>{dataJadwal.sesi}</td>
                                 <td>{dataJadwal.dateJ}</td>

@@ -7,6 +7,7 @@ CREATE TABLE user (
     PRIMARY KEY (id)
 )
 
+-- baru
 CREATE TABLE dataJadwal (
     idDJ int NOT NULL AUTO_INCREMENT,
     idC int NOT NULL,
@@ -19,10 +20,13 @@ CREATE TABLE dataJadwal (
     MPay VARCHAR(50),
     TPay int,
     dateT date not null DEFAULT (CURDATE()),
+    idPsikolog int,
     PRIMARY KEY (idDJ),
     FOREIGN KEY (idC) REFERENCES user(id)
 )
 
+-- ALTER TABLE dataHasil ADD idPsikolog int;
+-- baru
 CREATE TABLE dataHasil (
     idDH int NOT NULL AUTO_INCREMENT,
     idC int NOT NULL, 
@@ -35,10 +39,13 @@ CREATE TABLE dataHasil (
     dateT date not null DEFAULT (CURDATE()),
     fileName VARCHAR(255),
     path VARCHAR(255),
+    idPsikolog int,
     PRIMARY KEY (idDH),
     FOREIGN key (idC) REFERENCES user(id),
     FOREIGN KEY (idDJ) REFERENCES dataJadwal(idDJ)
 )
+
+SELECT * FROM dataHasil
 
 CREATE TABLE dataSP (
     idSP int NOT NULL AUTO_INCREMENT,
@@ -70,8 +77,58 @@ CREATE TABLE dataST (
     PRIMARY KEY (idST)
 )
 
-SELECT * FROM dataSP
-DELETE FROM dataSP
+CREATE TABLE psikolog (
+    idPsikolog INT NOT NULL,
+    namaPsikolog VARCHAR(50),
+    ttlPsikolog VARCHAR(50),
+    JKPsikolog VARCHAR(20),
+    agamaPsikolog VARCHAR(20),
+    statusPsikolog VARCHAR(20),
+    noHpPsikolog VARCHAR(20),
+    PRIMARY KEY (idPsikolog)
+);
 
+CREATE TABLE ratingUlasan(
+    idRatingUlasan  int NOT NULL AUTO_INCREMENT,
+    idPsikolog int NOT NULL,
+    idDH int NOT NULL, 
+    rating int NOT NULL,
+    ulasan VARCHAR(100),
+    PRIMARY KEY (idRatingUlasan),
+    FOREIGN KEY (idPsikolog) REFERENCES psikolog(idPsikolog),
+    FOREIGN KEY (idDH) REFERENCES dataHasil(idDH)
+)
 
-SELECT * FROM dataHasil
+CREATE TABLE voucher(
+    idVoucher  int NOT NULL AUTO_INCREMENT,
+    namaVoucher VARCHAR(100) NOT NULL,
+    jenisVoucher VARCHAR(50) NOT NULL,
+    discount int NOT NULL,
+    PRIMARY KEY (idVoucher)
+)
+
+DROP TABLE voucher
+
+SELECT * FROM ratingUlasan
+
+INSERT INTO psikolog
+(idPsikolog, namaPsikolog, ttlPsikolog, JKPsikolog, agamaPsikolog, statusPsikolog, noHpPsikolog)
+VALUES(001,'Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog', 'Medan, 16 Juli 1967', 'Perempuan', 'Islam', 'Menikah', '082162429736' )
+
+INSERT INTO psikolog
+(idPsikolog, namaPsikolog, ttlPsikolog, JKPsikolog, agamaPsikolog, statusPsikolog, noHpPsikolog)
+VALUES(002,'Sarinah S.Psi., M.Psi Psikolog', 'Tarutung, 27 April 1965 ', 'Perempuan', 'Kristen', 'Menikah', '08126402588' )
+
+INSERT INTO psikolog
+(idPsikolog, namaPsikolog, ttlPsikolog, JKPsikolog, agamaPsikolog, statusPsikolog, noHpPsikolog)
+VALUES(003,'Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog', 'Tebing Tinggi, 20 Mei 1967', 'Perempuan', 'Islam', 'Menikah', '08126059074' )
+
+INSERT INTO psikolog
+(idPsikolog, namaPsikolog, ttlPsikolog, JKPsikolog, agamaPsikolog, statusPsikolog, noHpPsikolog)
+VALUES(004,'Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog', 'Medan, 15 Oktober 1985', 'Pria', 'Islam', 'Menikah', '085263510041' )
+
+DELETE FROM psikolog WHERE idPsikolog=003
+
+SELECT * FROM psikolog
+
+SELECT * FROM psikolog WHERE = 1

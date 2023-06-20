@@ -1,7 +1,9 @@
-import { Table} from 'react-bootstrap';
+import { Button, Table} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
+import * as XLSX from 'xlsx';
+
 
 function Hasil () {
     const [dateRange, setDateRange] = useState([null, null]);
@@ -9,7 +11,6 @@ function Hasil () {
     const [startDate, endDate] = dateRange;
     // variabel
     const [dataHasil, setDataHasil] = useState([])
-
     useEffect(() =>{
         const fetchAllDataHasil = async () =>{
             try{
@@ -46,7 +47,12 @@ function Hasil () {
         }catch(e){
             console.log("isiEror",e)
         }
-        
+    }
+    const handleExport = () =>{
+        const ws = XLSX.utils.json_to_sheet(dataHasil);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+        XLSX.writeFile(wb, "DataHasil.xlsx");
     }
     return(
 
@@ -59,7 +65,10 @@ function Hasil () {
                 <h1 className='text-center mb-0'>{dataHasil.length}</h1>
             </div>
             <div className='d-flex justify-content-start'> 
-                <div className='mb-3' style={{
+                    <section>
+                        <Button onClick={handleExport} variant='success'> download file</Button>
+                    </section>
+                <div className='mb-3 mx-3' style={{
                     width:'20%'
                 }}>
                 <DatePicker
@@ -76,9 +85,7 @@ function Hasil () {
                 </div>
                 </div>
         </section>
-        <section>
 
-        </section>
         <Table striped>
                 <thead className='tableHead'>
                     <tr>
@@ -88,6 +95,7 @@ function Hasil () {
                     <th>Nama</th>
                     <th>Perusahaan</th>
                     <th>Status</th>
+                    <th>Psikolog</th>
                     <th>Tanggal Janjian</th>
                     <th>Tanggal Selesai</th>
                     <th>File</th>
@@ -103,6 +111,13 @@ function Hasil () {
                             <td>{dataHasil.nama}</td>
                             <td>{dataHasil.namaP}</td>
                             <td>{dataHasil.pelayanan}</td>
+                            <td>
+                            {/* baru */}
+                                {dataHasil.idPsikolog === 1 && <span> Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </span>}
+                                {dataHasil.idPsikolog === 2 && <span> Sarinah S.Psi., M.Psi Psikolog</span>}
+                                {dataHasil.idPsikolog === 3 && <span> Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog</span>}
+                                {dataHasil.idPsikolog === 4 && <span> Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog</span>}
+                            </td>
                             <td>{dataHasil.dateJ}</td>
                             <td>{(new Date(dataHasil.dateT)).toLocaleDateString('en-US')}</td>
                             <td onClick={() => handleDowload(dataHasil.idDH)}>{dataHasil.fileName}</td>

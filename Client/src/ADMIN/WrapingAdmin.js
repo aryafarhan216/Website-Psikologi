@@ -10,8 +10,9 @@ import {
     Link,
   } from "react-router-dom";
 import '../styleGlobal.css'
+
 // Icons
-import {MdDateRange, MdOutlineSpaceDashboard, MdAttachMoney, MdOutlineSupervisedUserCircle, MdOutlineVerifiedUser, MdOutlineChat, MdMenu} from 'react-icons/md'
+import {MdDateRange, MdOutlineSpaceDashboard, MdAttachMoney, MdOutlineSupervisedUserCircle, MdOutlineVerifiedUser, MdOutlineChat, MdMenu, MdCompress} from 'react-icons/md'
 import {GoSignOut} from 'react-icons/go'
 // images
 import logo from "../Images/User/Logo.png"
@@ -21,6 +22,8 @@ import Hasil from './PAGES/Hasil';
 import Keuangan from './PAGES/Keuangan';
 import Penjadwalan from './PAGES/Penjadwalan';
 import { useParams } from 'react-router-dom';
+import ChatSupport from './PAGES/ChatSupport';
+import Voucher from './PAGES/Voucher';
 
 
 function WrapingAdmin () {
@@ -28,7 +31,6 @@ function WrapingAdmin () {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    console.log(page)
     const adminPage = () =>{
         switch(page){
           case "dashboard":
@@ -45,6 +47,12 @@ function WrapingAdmin () {
                 break
             case "dataHasil":
                 return <Hasil />
+                break
+            case"chat":
+                return <ChatSupport />
+                break
+            case"voucher":
+                return <Voucher />
                 break
     
     
@@ -82,6 +90,7 @@ function WrapingAdmin () {
         <Link to="/admin/dataKeuangan" className='d-flex align-items-center'><MdAttachMoney /> <span className='px-1'>Data Keuangan</span></Link>
         <Link to="/admin/dataJadwal" className='d-flex align-items-center'><MdOutlineSupervisedUserCircle /> <span className='px-1'>Data Jadwal</span></Link>
         <Link to="/admin/dataHasil" className='d-flex align-items-center'><MdOutlineVerifiedUser /> <span className='px-1'>Data Hasil</span></Link>
+        <Link to="/admin/voucher" className='d-flex align-items-center'><MdCompress /> <span className='px-1'>Voucher</span></Link>
         <Link to="/admin/chat" className='d-flex align-items-center'><MdOutlineChat /> <span className='px-1'>Chat</span></Link>
         <div className='px-3'>
             <hr />
@@ -99,8 +108,8 @@ function WrapingAdmin () {
 
     <Row>
         {/* SideBar */}
-        <Col className='sidebar mr-0' xs={0} lg={2}>
-            <div className='d-lg-block backColor vh-100 pt-4 d-none'>
+        <Col className='sidebar mr-0 backColor ' xs={0} lg={2}>
+            <div className='d-lg-block vh-100 pt-4 d-none'>
             <seciton className="">
                 <div className='d-flex justify-content-center'>
                     <img 
@@ -125,11 +134,11 @@ function WrapingAdmin () {
             <Link Link to="/admin/dataKeuangan" className='d-flex align-items-center'><MdAttachMoney /> <span className='px-1'>Data Keuangan</span></Link>
             <Link Link to="/admin/dataJadwal" className='d-flex align-items-center'><MdOutlineSupervisedUserCircle /> <span className='px-1'>Data Jadwal</span></Link>
             <Link Link to="/admin/dataHasil" className='d-flex align-items-center'><MdOutlineVerifiedUser /> <span className='px-1'>Data Hasil</span></Link>
+            <Link to="/admin/voucher" className='d-flex align-items-center'><MdCompress /> <span className='px-1'>Voucher</span></Link>
             <Link Link to="/admin/chat" className='d-flex align-items-center'><MdOutlineChat /> <span className='px-1'>Chat</span></Link>
             <div className='px-3'>
                 <hr />
              </div>
-             <Link href="#" className='d-flex align-items-center'><GoSignOut /> <span className='px-1'>Leave</span></Link>
             </Nav>
             </div>
             </div>

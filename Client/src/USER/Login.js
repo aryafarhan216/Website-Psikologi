@@ -30,7 +30,7 @@ function Login() {
         e.preventDefault()
         try {
                const cek = await axios.post("http://localhost:8800/user", userLogin )
-               if(cek.data[0].password == userLogin.password){
+               if(cek.data[0].password === userLogin.password){
                 navigate("/user/homepage")
                 localStorage.setItem('user', JSON.stringify(cek.data[0]));
                }else{
@@ -89,7 +89,7 @@ function Login() {
                 <Button variant="success" type="submit" className='mt-2' onClick={handleClick}>
                     Sign In
                 </Button>
-                <p className='mt-1'><small><em>not a member?<Link to="signUp" className='mainColor mx-1' >Sign Up</Link> </em></small></p>
+                <p className='mt-1'><small><em>not a member?<Link to="signUp" className='mainColor mx-1' >Sign Up</Link> </em></small>or a <Link to="/user/homepage" className='mainColor mx-1' >Guest</Link></p>
                 </Form>
                 </div>
                 </Col>
