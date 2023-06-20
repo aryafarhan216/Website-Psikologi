@@ -124,6 +124,7 @@ function Keuangan () {
                     <th>Customer</th>
                     <th>Perusahaan</th>
                     <th>Pelayanan</th>
+                    <th>Psikolog</th>
                     <th>Sesi/Orang</th>
                     <th>M Pembayaran</th>
                     <th>T Pembayaran</th>
@@ -140,6 +141,13 @@ function Keuangan () {
                                 <td>{dataJadwal.nama}</td>
                                 <td>{dataJadwal.namaP}</td>
                                 <td>{dataJadwal.pelayanan}</td>
+                                <td>
+                                {/* baru */}
+                                {dataJadwal.idPsikolog === 1 && <span> Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </span>}
+                                {dataJadwal.idPsikolog === 2 && <span> Sarinah S.Psi., M.Psi Psikolog</span>}
+                                {dataJadwal.idPsikolog === 3 && <span> Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog</span>}
+                                {dataJadwal.idPsikolog === 4 && <span> Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog</span>}
+                                </td>
                                 <td>{dataJadwal.sesi}</td>
                                 <td>{dataJadwal.MPay}</td>
                                 <td>Rp. {(dataJadwal.TPay).toLocaleString()}</td>

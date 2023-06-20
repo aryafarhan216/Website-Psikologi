@@ -7,6 +7,7 @@ import{
     Container
 } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { FaStar } from 'react-icons/fa'
 // images
 import section1Img from "../Images/User/section1IMG.png"
 import section2Img from "../Images/User/section2IMG.png"
@@ -21,8 +22,61 @@ import psikolog2 from "../Images/User/psikolog/2.png"
 import psikolog3 from "../Images/User/psikolog/3.png"
 import psikolog4 from "../Images/User/psikolog/4.png"
 
+import { useEffect, useState} from "react"
+import axios from "axios"
+import { useNavigate } from 'react-router-dom';
+
 
 function HomePage (){
+    // varible data
+    const [hasilData, setHasilData] = useState()
+    const [averageRatings, setAverageRatings] = useState({});
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchDataPesanan = async () => {
+          try {
+            const resPesanan = await axios.get("http://localhost:8800/ratingUlasan");
+            setHasilData(resPesanan.data);
+          } catch (e) {
+            console.log(e);
+          }
+        };
+      
+        fetchDataPesanan();
+      }, []);
+
+    useEffect(() =>{
+
+        const calculateAverageRatings = () => {
+            const tempAverageRatings = {};
+        
+            hasilData.forEach((item) => {
+                if (!tempAverageRatings[item.idPsikolog]) {
+                tempAverageRatings[item.idPsikolog] = {
+                    sum: item.rating,
+                    count: 1,
+                };
+                } else {
+                tempAverageRatings[item.idPsikolog].sum += item.rating;
+                tempAverageRatings[item.idPsikolog].count += 1;
+                }
+            });
+        
+            Object.keys(tempAverageRatings).forEach((key) => {
+                const average = Math.ceil(tempAverageRatings[key].sum / tempAverageRatings[key].count);
+                tempAverageRatings[key] = average;
+            });
+        
+            setAverageRatings(tempAverageRatings);
+            };
+          
+        hasilData && calculateAverageRatings();
+
+    }, [hasilData])
+
+    console.log(averageRatings)
+    
     return(
         <>
         {/* Section 1 */}
@@ -172,40 +226,157 @@ function HomePage (){
             <h4 className="mb-0">Profil Psikolog</h4>
             <h4 className="mainColor mb-3">YSDM</h4>
             <Row className="">
-                <Col md className="d-flex justify-content-center mb-2">
-                <Card style={{ width: '80%' }}>
-                <Card.Img variant="top" src={psikolog1} />
-                <Card.Body>
-                    <Card.Title className="text-center">Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </Card.Title>
-                    <span></span>
-                </Card.Body>
-                </Card>
+                <Col md className="d-flex justify-content-center mb-2" 
+                onClick={() =>{
+                    const data = {id:1}
+                    navigate("/user/biodataPsikolog", { state: data })
+                }}>
+                    <Card style={{ width: '80%' }}>
+                    <Card.Img variant="top" src={psikolog1} />
+                    <Card.Body>
+                    <Card.Title >
+                        <h6 className="text-center" >
+                        Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog
+                        </h6>
+                        </Card.Title>
+                        <span>
+                        </span>
+                    </Card.Body>
+                    <Card.Footer>
+                    <div className="App">
+                        {[...Array(averageRatings[1])].map((star, index) => {
+                            return(
+                            <label>
+                                <input 
+                                type="radio" 
+                                name="rating"
+                                value={averageRatings[4]}
+
+                            />
+                                <FaStar 
+                                className='star' 
+                                size={15} 
+                                color={"#ffc107" }
+                                />
+                            </label>
+                            );
+                        })}
+                    </div>
+                    </Card.Footer>
+                    </Card>
                 </Col>
-                <Col md className="d-flex justify-content-center mb-2">
+                <Col md className="d-flex justify-content-center mb-2"
+                 onClick={() =>{
+                    const data = {id:2}
+                    navigate("/user/biodataPsikolog", { state: data })
+                }}>
                 <Card style={{ width: '80%' }}>
                 <Card.Img variant="top" src={psikolog2} />
                 <Card.Body>
-                    <Card.Title className="text-center">Sarinah S.Psi., M.Psi Psikolog </Card.Title>
+                <Card.Title >
+                    <h6 className="text-center" >
+                    Sarinah S.Psi., M.Psi Psikolog
+                    </h6>
+                    </Card.Title>
                     <span></span>
                 </Card.Body>
+                <Card.Footer>
+                <div className="App">
+                    {[...Array(averageRatings[2])].map((star, index) => {
+                        return(
+                        <label>
+                            <input 
+                            type="radio" 
+                            name="rating"
+                            value={averageRatings[4]}
+
+                        />
+                            <FaStar 
+                            className='star' 
+                            size={15} 
+                            color={"#ffc107" }
+                            />
+                        </label>
+                        );
+                    })}
+                </div>
+                </Card.Footer>
                 </Card>
                 </Col>
-                <Col md className="d-flex justify-content-center mb-2">
+                <Col md className="d-flex justify-content-center mb-2"
+                 onClick={() =>{
+                    const data = {id:3}
+                    navigate("/user/biodataPsikolog", { state: data })
+                }}>
                 <Card style={{ width: '80%' }}>
                 <Card.Img variant="top" src={psikolog3} />
                 <Card.Body>
-                    <Card.Title className="text-center">Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog </Card.Title>
+                <Card.Title >
+                    <h6 className="text-center" >
+                    Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog 
+                    </h6>
+                    </Card.Title>
                     <span></span>
                 </Card.Body>
+                <Card.Footer>
+                <div className="App">
+                    {[...Array(averageRatings[3])].map((star, index) => {
+                        return(
+                        <label>
+                            <input 
+                            type="radio" 
+                            name="rating"
+                            value={averageRatings[4]}
+
+                        />
+                            <FaStar 
+                            className='star' 
+                            size={15} 
+                            color={"#ffc107" }
+                            />
+                        </label>
+                        );
+                    })}
+                </div>
+                </Card.Footer>
                 </Card>
                 </Col>
-                <Col md className="d-flex justify-content-center mb-2">
+                <Col md className="d-flex justify-content-center mb-2"
+                 onClick={() =>{
+                    const data = {id:4}
+                    navigate("/user/biodataPsikolog", { state: data })
+                }}>
                 <Card style={{ width: '80%' }}>
                 <Card.Img variant="top" src={psikolog4} />
                 <Card.Body>
-                    <Card.Title className="text-center">Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog       </Card.Title>
+                    <Card.Title >
+                    <h6 className="text-center" >
+                    Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog
+                    </h6>
+                    </Card.Title>
                     <span></span>
                 </Card.Body>
+                <Card.Footer>
+                <div className="App">
+                    {[...Array(averageRatings[4])].map((star, index) => {
+                        return(
+                        <label>
+                            <input 
+                            type="radio" 
+                            name="rating"
+                            value={averageRatings[4]}
+
+                        />
+                            <FaStar 
+                            className='star' 
+                            size={15} 
+                            color={"#ffc107" }
+                            />
+                        </label>
+                        );
+                    })}
+                </div>
+                </Card.Footer>
                 </Card>
                 </Col>
                 {/* <Col md className="d-flex justify-content-center mb-2">

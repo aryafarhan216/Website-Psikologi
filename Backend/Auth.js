@@ -55,9 +55,9 @@ app.post('/uploadDataHasil', upload.single('file'), (req, res) => {
     const otherData = JSON.parse(req.body.otherData);
     const fileName = file.originalname;
     const filePath = file.path;
-  
-    db.query('INSERT INTO dataHasil (idC, idDJ, status, nama, namaP, pelayanan, dateJ, fileName, path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-    [otherData.idC, otherData.idDJ, otherData.option, otherData.nama, otherData.namap, otherData.subOption, otherData.jadwal, fileName, filePath], 
+//   baru
+    db.query('INSERT INTO dataHasil (idC, idDJ, status, nama, namaP, pelayanan, dateJ, fileName, path, idPsikolog) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+    [otherData.idC, otherData.idDJ, otherData.option, otherData.nama, otherData.namap, otherData.subOption, otherData.jadwal, fileName, filePath, otherData.psikolog], 
     (error, results) => {
       if (error) {
         res.send(error);
@@ -66,6 +66,22 @@ app.post('/uploadDataHasil', upload.single('file'), (req, res) => {
       }
     });
   });
+
+//  insert data rating
+app.post('/uploadRating',(req,res) =>{
+    const q = "INSERT INTO ratingUlasan (`idPsikolog`,`rating`,`ulasan`,`idDH`) VALUES (?)"
+    const values=[
+        req.body.idPsikolog,
+        req.body.rating,
+        req.body.ulasan,
+        req.body.idDH,
+    ]
+    db.query(q,[values],(err,data) =>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 // get data hasil
 app.get('/dataHasil',(req, res)=>{
     const q = "SELECT * FROM dataHasil"
@@ -74,6 +90,16 @@ app.get('/dataHasil',(req, res)=>{
         return res.json(data)
     })
 })
+
+// get data hasil
+app.get('/ratingUlasan',(req, res)=>{
+    const q = "SELECT * FROM ratingUlasan"
+    db.query(q,(err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 // get data hasil kondisional
 app.post('/tanggal/dataHasil',(req, res)=>{
     const q = "SELECT * FROM dataHasil WHERE dateT BETWEEN ? AND ?"
@@ -100,10 +126,61 @@ app.post('/user/dataHasil',(req, res)=>{
         return res.json(data)
     })
 })
+
+// get data hasil baru
+app.post('/user/dataHasilRating',(req, res)=>{
+    const q = `SELECT dataHasil.*, ratingUlasan.rating, ratingUlasan.ulasan
+    FROM dataHasil
+    LEFT JOIN ratingUlasan ON dataHasil.idDH = ratingUlasan.idDH
+    WHERE dataHasil.idC =?`
+    const values = [
+        req.body.id,
+        req.body.nama
+    ]
+    db.query(q,values[0], (err,data)=>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+// insert VOUCHER baru
+app.post("/insertVoucher", (req,res) =>{
+    const q = "INSERT INTO voucher (`namaVoucher`, `jenisVoucher`, `discount`) VALUES (?)"
+    const values =[
+        req.body.namaVoucher,
+        req.body.jenisPelayanan,
+        req.body.discount
+    ]
+    console.log(values)
+    db.query(q,[values],(err,data) =>{
+        if(err) return console.log(err)
+        return res.json(data)
+    })
+})
+
+// get all VOUCHER
+app.get("/getVoucher", (req,res) =>{
+    const q = `SELECT * FROM voucher`
+    db.query(q, (err,data) =>{
+        if(err) return console.log(err)
+        return res.json(data)
+    })
+})
+
+// delete voucher
+app.post("/delete/voucher",(req,res) =>{
+    const values = req.body.id
+    const q = "DELETE FROM voucher WHERE idVoucher = ?"
+    db.query(q,values,(err,data) =>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 // insert data jadwal
 app.post("/insertDataJadwal",(req,res) =>{
     console.log("masuk insertData")
-    const q = "INSERT INTO dataJadwal (`idC`, `status`, `nama`, `namaP`, `pelayanan`, `sesi`, `dateJ`, `MPay`, `TPay` ) VALUES (?)"
+    // baru
+    const q = "INSERT INTO dataJadwal (`idC`, `status`, `nama`, `namaP`, `pelayanan`, `sesi`, `dateJ`, `MPay`, `TPay`, `idPsikolog` ) VALUES (?)"
     const values = [
         req.body.idC,
         req.body.option,
@@ -113,11 +190,12 @@ app.post("/insertDataJadwal",(req,res) =>{
         req.body.sesi,
         req.body.jadwal,
         req.body.MPay,
-        req.body.sum
+        req.body.sum,
+        req.body.psikolog
     ]
     console.log(values)
     db.query(q,[values],(err,data) =>{
-        if(err) return res.json(err)
+        if(err) return console.log(err)
         return res.json(data)
     })
 })
@@ -429,6 +507,30 @@ app.post("/delete/training-sdm",(req,res) =>{
     })
 })
 
+// --------------------- END------------------//
+
+// get Psikolog data
+app.post("/bio/psikolog",(req,res) =>{
+    const value = req.body.id
+    const q = `SELECT * FROM psikolog WHERE idPsikolog = ?`;
+    console.log(value)
+    db.query(q,value,(err,data) =>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+// get Psikolog data
+app.post("/rating/psikolog",(req,res) =>{
+    const value = req.body.id
+    const q = `SELECT * FROM ratingUlasan WHERE idPsikolog = ?`;
+
+    console.log(value)
+    db.query(q,value,(err,data) =>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
 // get All Users
 app.get("/users", (req,res)=>{
     const q = "SELECT * FROM user"

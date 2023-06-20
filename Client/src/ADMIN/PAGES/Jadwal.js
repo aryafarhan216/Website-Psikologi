@@ -74,6 +74,16 @@ function ModalJadwal(props) {
                 <Col><strong>{data.subOption}</strong></Col>
             </Row>
             <Row>
+                <Col xs={3}>Psikolog</Col>
+                <Col xs={1}>:</Col>
+                <Col><strong>
+                {data.psikolog === 1 && <span> Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </span>}
+                {data.psikolog === 2 && <span> Sarinah S.Psi., M.Psi Psikolog</span>}
+                {data.psikolog === 3 && <span> Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog</span>}
+                {data.psikolog === 4 && <span> Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog</span>}
+                </strong></Col>
+            </Row>
+            <Row>
                 <Col xs={3}>Sesi</Col>
                 <Col xs={1}>:</Col>
                 <Col>{data.sesi} Sesi/Orang</Col>
@@ -121,7 +131,7 @@ function Jadwal () {
     const [dataJadwal, setDataJadwal] = useState([])
     // variable modal
     const [modalShow, setModalShow] = useState(false);
-    const [modalData, setModalData] = useState({idC: "", idDJ: "", nama: "", namaP: "", option: "", 
+    const [modalData, setModalData] = useState({idC: "", idDJ: "", nama: "", namaP: "", option: "", psikolog:"",
     subOption: "", sesi:"", jadwal:"", MPay: "", sum:""});
 
     useEffect(() =>{
@@ -195,6 +205,7 @@ function Jadwal () {
                     <th>Status</th>
                     <th>Customer</th>
                     <th>Perusahaan</th>
+                    <th>Psikolog</th>
                     <th>Pelayanan</th>
                     <th>Sesi/Orang</th>
                     <th>Tanggal Janjian</th>
@@ -216,6 +227,7 @@ function Jadwal () {
                                 nama : dataJadwal.nama,
                                 namap : dataJadwal.namaP,
                                 option : dataJadwal.Status,
+                                psikolog : dataJadwal.idPsikolog,
                                 subOption : dataJadwal.pelayanan,
                                 sesi : dataJadwal.sesi,
                                 jadwal : dataJadwal.dateJ,
@@ -229,6 +241,12 @@ function Jadwal () {
                                 <td>{dataJadwal.Status}</td>
                                 <td>{dataJadwal.nama}</td>
                                 <td>{dataJadwal.namaP}</td>
+                                <td>
+                                {dataJadwal.idPsikolog === 1 && <span> Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </span>}
+                                {dataJadwal.idPsikolog === 2 && <span> Sarinah S.Psi., M.Psi Psikolog</span>}
+                                {dataJadwal.idPsikolog === 3 && <span> Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog</span>}
+                                {dataJadwal.idPsikolog === 4 && <span> Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog</span>}
+                                </td>
                                 <td>{dataJadwal.pelayanan}</td>
                                 <td>{dataJadwal.sesi}</td>
                                 <td>{dataJadwal.dateJ}</td>

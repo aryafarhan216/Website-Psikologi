@@ -13,6 +13,7 @@ import FormPesanan from "./FormPesanan";
 import TransaksiSukses from "./TransaksiSukses";
 import HasilPesanan from "./HasilPesanan";
 import ChatAdminSupport from "./ChatAdminSupport";
+import BiodataPsikolog from "./BiodataPsikolog";
 
 function WrapingUser (){
     let { name } = useParams();
@@ -37,9 +38,12 @@ function WrapingUser (){
           case "transaksiSukses":
               return <TransaksiSukses />
               break
-            case "chatAdmin":
-              return <ChatAdminSupport />
-              break
+          case "chatAdmin":
+            return <ChatAdminSupport />
+            break
+          case "biodataPsikolog":
+            return <BiodataPsikolog/>
+            break
     
           default: return <h1 className="text-center my-5">404</h1>
         }

@@ -95,6 +95,7 @@ function Hasil () {
                     <th>Nama</th>
                     <th>Perusahaan</th>
                     <th>Status</th>
+                    <th>Psikolog</th>
                     <th>Tanggal Janjian</th>
                     <th>Tanggal Selesai</th>
                     <th>File</th>
@@ -110,6 +111,13 @@ function Hasil () {
                             <td>{dataHasil.nama}</td>
                             <td>{dataHasil.namaP}</td>
                             <td>{dataHasil.pelayanan}</td>
+                            <td>
+                            {/* baru */}
+                                {dataHasil.idPsikolog === 1 && <span> Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </span>}
+                                {dataHasil.idPsikolog === 2 && <span> Sarinah S.Psi., M.Psi Psikolog</span>}
+                                {dataHasil.idPsikolog === 3 && <span> Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog</span>}
+                                {dataHasil.idPsikolog === 4 && <span> Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog</span>}
+                            </td>
                             <td>{dataHasil.dateJ}</td>
                             <td>{(new Date(dataHasil.dateT)).toLocaleDateString('en-US')}</td>
                             <td onClick={() => handleDowload(dataHasil.idDH)}>{dataHasil.fileName}</td>

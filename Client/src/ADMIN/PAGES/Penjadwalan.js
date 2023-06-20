@@ -189,6 +189,7 @@ function Penjadwalan () {
                 )
             })}
             </Col>
+            
             <Col>
             <div className="bg-light">
             <h3 className="text-center py-3 mt-3 border-0 rounded">Assessment Center</h3>

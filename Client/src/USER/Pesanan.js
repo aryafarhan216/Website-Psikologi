@@ -52,6 +52,13 @@ function Pesanan () {
                     <h6 >{pesanan.namaP}</h6>
                     </Col>
                     <Col>
+                    {/* baru */}
+                    <p className="mb-0"><strong>
+                    {pesanan.idPsikolog === 1 && <span> Chairiah Yulianti Siregar S.Psi., M.Psi Psikolog </span>}
+                    {pesanan.idPsikolog === 2 && <span> Sarinah S.Psi., M.Psi Psikolog</span>}
+                    {pesanan.idPsikolog === 3 && <span> Hasdina Trisnasuci, S.Psi,M.Psi, Psikolog</span>}
+                    {pesanan.idPsikolog === 4 && <span> Achmad Irvan Dwi Putra, S.Psi,M.Psi, Psikolog</span>}
+                    </strong></p>
                     <p className="mb-0"><strong>{pesanan.pelayanan}</strong></p>
                     <p className="mb-0">{pesanan.dateJ}</p>
                     <p className="mb-0">{pesanan.sesi} <span>Sesi/Orang</span></p>
