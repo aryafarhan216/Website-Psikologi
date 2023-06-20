@@ -60,6 +60,7 @@ function BiodataPsikolog() {
     if(!hasilData)fetchDataPesanan()
     }, [rating ?? []])
 
+    console.log("rating", rating)
     return ( 
         <>
         <Container>
@@ -91,6 +92,11 @@ function BiodataPsikolog() {
                     <Col xs={3}>Jenis Kelamin</Col>
                     <Col xs={1}>:</Col>
                     <Col> <p> {hasilData[0]?.JKPsikolog}</p></Col>
+                </Row>
+                <Row className="m-0 p-0">
+                    <Col xs={3}>Agama</Col>
+                    <Col xs={1}>:</Col>
+                    <Col> <p> {hasilData[0]?.agamaPsikolog}</p></Col>
                 </Row>
                 <Row className="m-0 p-0">
                     <Col xs={3}>Status</Col>
@@ -146,6 +152,7 @@ function BiodataPsikolog() {
                         <div className="wrapRating mx-3 my-1 ">
                         <hr/>
                             <div key={index}>
+                            <p className='m-0'><small>{rating.namaP}</small></p>
                                 <p className='m-0'>
                                 {[...Array(rating.rating)].map((star, index) => {
                                     return(

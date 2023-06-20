@@ -149,8 +149,7 @@ function FormPesanan () {
     useEffect(() =>{
         
         sumPrice()
-        
-        console.log("masuk", sum)
+
     }, [selectedValues.sesi, selectedValues.subOption, selectedVoucherId, sum])
     
 
